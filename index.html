@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscription Tracker | FinTech Cash Flow Auditor</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <div class="container header-inner">
+      <div>
+        <h1>Subscription Tracker</h1>
+        <p class="subtitle">Annualized Recurring Cash Outflow &amp; Reclaimed Savings Auditor</p>
+      </div>
+      <div class="header-actions">
+        <button id="exportCsvBtn" class="btn btn-secondary" type="button">Export CSV</button>
+        <button id="openModalBtn" class="btn btn-primary" type="button">+ Add Subscription</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="feedbackBanner" class="feedback-banner hidden" role="status" aria-live="polite"></div>
+
+    <!-- Real-time Summary Metric Cards -->
+    <section class="metrics-grid" aria-label="Financial Summary Metrics">
+      <article class="metric-card">
+        <span class="metric-label">Active Annual Outflow</span>
+        <strong id="metricAnnualOutflow" class="metric-value">$0.00</strong>
+        <span class="metric-note">Standardized 12-month active drain</span>
+      </article>
+      <article class="metric-card">
+        <span class="metric-label">Monthly Outflow Equivalent</span>
+        <strong id="metricMonthlyOutflow" class="metric-value">$0.00</strong>
+        <span class="metric-note">Annual outflow / 12 (Half-Up rounded)</span>
+      </article>
+      <article class="metric-card metric-savings">
+        <span class="metric-label">Reclaimed Annual Savings</span>
+        <strong id="metricReclaimedSavings" class="metric-value">$0.00</strong>
+        <span class="metric-note">Cumulative from canceled services</span>
+      </article>
+      <article class="metric-card">
+        <span class="metric-label">Active Subscriptions</span>
+        <strong id="metricActiveCount" class="metric-value">0 / 0</strong>
+        <span class="metric-note">Active vs. total tracked portfolio</span>
+      </article>
+    </section>
+
+    <!-- Category Filter Bar -->
+    <section class="controls-bar">
+      <div class="filter-tabs" id="categoryFilterContainer" role="tablist" aria-label="Filter by Category">
+        <button class="filter-chip active" data-category="all" type="button">All Categories</button>
+      </div>
+    </section>
+
+    <!-- Subscriptions Table -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Recurring Commitments</h2>
+      </div>
+      <div class="table-responsive">
+        <table class="sub-table">
+          <thead>
+            <tr>
+              <th>Service Name</th>
+              <th>Category</th>
+              <th>Billed Cost</th>
+              <th>Frequency</th>
+              <th>Monthly Equiv.</th>
+              <th>Annualized Cost</th>
+              <th>Status</th>
+              <th>Lifecycle Actions</th>
+            </tr>
+          </thead>
+          <tbody id="subscriptionsTableBody">
+            <tr>
+              <td colspan="8" class="empty-state">Loading subscriptions...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Audit Log & Category Breakdown -->
+    <section class="bottom-grid">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Active Spend by Category (Annualized)</h2>
+        </div>
+        <div id="categoryBreakdownList" class="breakdown-list"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Lifecycle Audit Log (Signed Savings Delta)</h2>
+        </div>
+        <ul id="auditLogList" class="audit-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- Create / Edit Modal -->
+  <div id="subModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add Subscription</h2>
+        <button id="closeModalBtn" class="icon-btn" type="button" aria-label="Close">&times;</button>
+      </div>
+      <form id="subscriptionForm" novalidate>
+        <input type="hidden" id="subIdInput" />
+
+        <div class="form-group">
+          <label for="subNameInput">Service Name *</label>
+          <input type="text" id="subNameInput" placeholder="e.g., Netflix, Spotify" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="subCostInput">Billed Cost (USD $) *</label>
+            <input type="number" id="subCostInput" step="0.01" placeholder="15.99" required />
+          </div>
+          <div class="form-group">
+            <label for="subFrequencySelect">Billing Frequency *</label>
+            <select id="subFrequencySelect" required>
+              <option value="weekly">Weekly (52x / yr)</option>
+              <option value="monthly" selected>Monthly (12x / yr)</option>
+              <option value="quarterly">Quarterly (4x / yr)</option>
+              <option value="annual">Annual (1x / yr)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="subCategorySelect">Category *</label>
+            <select id="subCategorySelect" required></select>
+          </div>
+          <div class="form-group">
+            <label for="subStatusSelect">Initial Status *</label>
+            <select id="subStatusSelect" required>
+              <option value="active" selected>Active</option>
+              <option value="paused">Paused</option>
+              <option value="canceled">Canceled</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="modalErrorBox" class="modal-error hidden" role="alert"></div>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelModalBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" id="saveSubBtn" class="btn btn-primary">Save Subscription</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
