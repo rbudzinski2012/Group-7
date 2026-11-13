@@ -1,21 +1,19 @@
-# Group-7: Subscription Tracker
+# Group-7
+Final Project - Subscription Tracker
 
-**Course**: COP5818 – FinTech Web Application Final Project  
-**Repository**: https://github.com/rbudzinski2012/Group-7.git  
-**Team Members**: Remington Budzinski, Brendan Fuller, Shena Parks, Pushpa Rathina Tom Samuel Thanaraj, and Ivette Touzalin-Awadallah
+Project Purpose:
+   - A responsive full-stack FinTech web application that normalizes recurring subscription costs across diverse billing frequencies to track annualized cash outflows and calculate cumulative annual savings from canceled services. The application solves the problem of users underestimating their total annual subscription spend by providing immediate visibility into active annual financial drain, and helps users reclaim lost cash flow by quantifying the exact savings of canceling specific services.
 
-## 1. Project Purpose & Essential Features
-A responsive full-stack FinTech web application that normalizes recurring subscription costs across diverse billing frequencies (`weekly`, `monthly`, `quarterly`, `annual`) into integer cents to track annualized cash outflows and calculate cumulative annual savings from canceled services.
+Essential Features:
+  - Subscription creation modal with strict input validation.
+  - Server-side financial calculation converting varied billing cycles into standardized annual and monthly costs.
+  - Lifecycle controls via PATCH (status toggle), PUT (edit), and DELETE (removal).
+  - Real-time dashboard metric cards displaying active annual outflows, monthly equivalent, total projected savings, and active subscriptions.
+  - Filter subscriptions on the dashboard by tag (e.g., Entertainment, Fitness, Other).
 
-### Essential Features
-* **Subscription Creation & Editing Modal** with strict client-side and server-side validation.
-* **Server-Side Financial Normalization** converting varied billing cycles into standardized annual (`weekly * 52`, `monthly * 12`, `quarterly * 4`, `annual * 1`) and monthly equivalent (`Math.round(annual_cents / 12)`) costs in integer cents.
-* **Full Lifecycle Controls** via `PATCH /api/subscriptions/:id/status` (status toggle with signed audit log tracking that prevents double-counting savings), `PUT /api/subscriptions/:id` (edit), and `DELETE /api/subscriptions/:id` (removal with foreign-key cascade).
-* **Real-Time Dashboard Summary Cards** displaying Active Annual Outflow, Monthly Outflow Equivalent, Reclaimed Annual Savings, and Active Subscriptions count.
-* **Category Tag Filtering** (`Entertainment`, `Sports`, `Fitness`, `Software & Productivity`, `Food & Lifestyle`, `Education`, `Travel`, `Other`) plus CSV export and category spend breakdown bars.
-
----
-
-## 2. Prerequisites & Installation
-* **Node.js**: v18.x or v20.x LTS (includes `npm`)
-* **OS**: Windows, macOS, or Linux
+Member Responsibilities:
+  - Remington Budzinski: Lead on Initial Repo Setup & Database Schema; Supporting on Frontend Dashboard & Modal UI.
+  - Brendan Fuller: Lead on Full Stack Integration & Testing; Supporting on Initial Repo Setup & Database Schema.
+  - Shena Parks: Lead on API Endpoints (GET, POST); Supporting on Financial Logic & Status Toggle.
+  - Pushpa Rathina: Lead on Financial Logic & Status Toggle; Supporting on API Endpoints (GET, POST).
+  - Ivette Touzalin-Awadallah: Lead on Frontend Dashboard & Modal UI; Supporting on Full Stack Integration & Testing.
