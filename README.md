@@ -19,8 +19,3 @@ A responsive full-stack FinTech web application that normalizes recurring subscr
 ## 2. Prerequisites & Installation
 * **Node.js**: v18.x or v20.x LTS (includes `npm`)
 * **OS**: Windows, macOS, or Linux
-
-### Step-by-Step Setup (From a Fresh Copy)
-1. Clone or unzip the project folder and navigate into it:
-   ```bash
-   cd COP5818_Final_Group7
