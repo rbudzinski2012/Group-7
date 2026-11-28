@@ -20,12 +20,12 @@ touches `data/subscriptions.db`.
 
 | # | Test (Proposal Section 8) | Owner | Result |
 |---|---|---|---|
-| 1 | Financial Result ($10 weekly = $520) | Pushpa Rathina | PASS |
-| 2 | Complete Workflow (add Spotify, cancel, +$143.88) | Brendan Fuller | PASS |
+| 1 | Financial Result ($10 weekly = $520) | Remington Budzinski | PASS |
+| 2 | Complete Workflow (add Spotify, cancel, +$143.88) | Shena Parks | PASS |
 | 3 | Repeated Status Toggle (no double counting) | Pushpa Rathina | PASS |
-| 4 | Invalid Input (API 400 JSON, frontend error) | Shena Parks | PASS |
-| 5 | Endpoint Verification (PUT / DELETE / 404) | Shena Parks | PASS |
-| 6 | Persistence (real server restart) | Brendan Fuller | PASS |
+| 4 | Invalid Input (API 400 JSON, frontend error) | Brendan Fuller | PASS |
+| 5 | Endpoint Verification (PUT / DELETE / 404) | Ivette Touzalin-Awadallah | PASS |
+| 6 | Persistence (real server restart) | Pushpa Rathina | PASS |
 | – | Safe display of names (instructor finding) | Ivette Touzalin-Awadallah | FAIL before fix, PASS after fix (see below) |
 
 Automated: `validation-test.js` 12/12 pass, `api-test.js` 32/32 pass.
