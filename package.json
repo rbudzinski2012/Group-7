@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "seed": "node server.js --seed"
+    "seed": "node server.js --seed",
+    "test": "node --test validation-test.js api-test.js"
   },
   "dependencies": {
     "better-sqlite3": "^11.3.0",
