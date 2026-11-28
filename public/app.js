@@ -4,6 +4,14 @@ const state = {
   activeCategory: 'all'
 };
 
+// Escapes user-supplied text before it is placed inside an HTML template,
+// so a subscription named "<img src=x onerror=...>" renders as literal text.
+function escapeHtml(value) {
+  const div = document.createElement('div');
+  div.textContent = String(value ?? '');
+  return div.innerHTML;
+}
+
 function formatCents(cents) {
   const sign = cents < 0 ? '-' : '';
   const abs = Math.abs(Number(cents) || 0);
@@ -28,14 +36,14 @@ async function fetchCategories() {
   const filterContainer = document.getElementById('categoryFilterContainer');
 
   select.innerHTML = state.categories
-    .map((c) => `<option value="${c.id}">${c.name}</option>`)
+    .map((c) => `<option value="${c.id}">${escapeHtml(c.name)}</option>`)
     .join('');
 
   const chipsHtml = [
     `<button class="filter-chip ${state.activeCategory === 'all' ? 'active' : ''}" data-category="all" type="button">All Categories</button>`,
     ...state.categories.map(
       (c) =>
-        `<button class="filter-chip ${String(state.activeCategory) === String(c.id) ? 'active' : ''}" data-category="${c.id}" type="button">${c.name}</button>`
+        `<button class="filter-chip ${String(state.activeCategory) === String(c.id) ? 'active' : ''}" data-category="${c.id}" type="button">${escapeHtml(c.name)}</button>`
     )
   ].join('');
 
@@ -86,7 +94,7 @@ function renderCategoryBreakdown(breakdown, totalActiveCents) {
       return `
         <div class="breakdown-row">
           <div class="breakdown-meta">
-            <span><strong>${category}</strong> (${pct}%)</span>
+            <span><strong>${escapeHtml(category)}</strong> (${pct}%)</span>
             <span>${formatCents(cents)} / yr</span>
           </div>
           <div class="breakdown-bar-bg">
@@ -115,7 +123,7 @@ function renderAuditLogs(logs) {
           : '$0.00 delta';
       return `
         <li>
-          <span><strong>${log.subscription_name}</strong>: ${log.previous_status} &rarr; ${log.new_status}</span>
+          <span><strong>${escapeHtml(log.subscription_name)}</strong>: ${log.previous_status} &rarr; ${log.new_status}</span>
           <strong>${deltaStr}</strong>
         </li>
       `;
@@ -146,8 +154,8 @@ function renderSubscriptionsTable() {
       const toggleLabel = sub.status === 'canceled' ? 'Reactivate' : 'Cancel Service';
       return `
         <tr>
-          <td><strong>${sub.name}</strong></td>
-          <td>${sub.category_name}</td>
+          <td><strong>${escapeHtml(sub.name)}</strong></td>
+          <td>${escapeHtml(sub.category_name)}</td>
           <td>${formatCents(sub.amount_cents)}</td>
           <td style="text-transform: capitalize;">${sub.frequency}</td>
           <td>${formatCents(sub.monthly_equivalent_cents)}/mo</td>
